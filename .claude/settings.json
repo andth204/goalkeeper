@@ -1,0 +1,15 @@
+{
+  "_comment": "GDD nudge hook. WINDOWS uses the .ps1 line below. On macOS/Linux, replace the command with: sh \"$CLAUDE_PROJECT_DIR/.claude/hooks/gdd-nudge.sh\"  (see gdd-starter/README.md > Cài đặt).",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.claude/hooks/gdd-nudge.ps1\""
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+# Deterministic line endings across OSes.
+* text=auto
+
+# Shell scripts MUST stay LF — CRLF breaks the shebang on macOS/Linux.
+*.sh text eol=lf
+
+# PowerShell handles both; keep CRLF on Windows.
+*.ps1 text eol=crlf
