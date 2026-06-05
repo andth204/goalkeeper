@@ -111,6 +111,8 @@ To disable the nudge entirely, remove the `UserPromptSubmit` block from `setting
 
 On each prompt, if it looks like a multi-step / feature request (keywords in English + Vietnamese, accent-insensitive: `add feature`, `refactor`, `implement`, `cải thiện`, `tối ưu`, …), the hook prints a single-line reminder to consider `/spec-to-goal` first. No match → prints nothing (≈0 tokens). It skips `/…` slash commands, always exits 0, and never blocks a prompt.
 
+To cut false positives, it also stays silent on **questions and explanations** — a prompt ending in `?` or starting with a question word (`what`, `how`, `why`, `tại sao`, `giải thích`, …). GDD nudges requests to *build*, not questions *about* the codebase (e.g. "is the cache optimized?" or "explain how X works" no longer trigger it).
+
 > The `.ps1` variant forces UTF-8 stdin because Windows PowerShell 5.1 otherwise mis-decodes accented input. The `.sh` variant needs no such workaround. To change the trigger words, edit the `$kw` array (ps1) or the `for k in` list (sh).
 
 ---

@@ -28,6 +28,17 @@ case "$pl" in
   *spec-to-goal*|*goal-implement*|*goal-status*) exit 0 ;;
 esac
 
+# Skip questions / explanations: GDD nudges REQUESTS to build, not questions
+# about the codebase. A trailing '?' or a question-word lead = not a build task.
+case "$pl" in
+  *[?]) exit 0 ;;
+esac
+case "$pl" in
+  what*|how*|why*|which*|where*|when*|who*|explain*) exit 0 ;;
+  "tai sao"*|"vi sao"*|"the nao"*|"nhu the nao"*|"co phai"*|"giai thich"*) exit 0 ;;
+  "tại sao"*|"vì sao"*|"thế nào"*|"như thế nào"*|"có phải"*|"giải thích"*) exit 0 ;;
+esac
+
 # Feature / multi-step intent keywords (VN with + without accents, EN).
 for k in \
   "them tinh nang" "tinh nang moi" "them chuc nang" "chuc nang moi" \

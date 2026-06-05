@@ -35,6 +35,11 @@ try {
     $ascii = $sb.ToString()
 } catch { $ascii = $pl }
 
+# Skip questions / explanations: GDD nudges REQUESTS to build, not questions
+# about the codebase. A trailing '?' or a question-word lead = not a build task.
+if ($ascii.TrimEnd().EndsWith('?')) { exit 0 }
+if ($ascii -match '^(what|how|why|which|where|when|who|explain|tai sao|vi sao|the nao|nhu the nao|co phai|giai thich)\b') { exit 0 }
+
 # Feature / multi-step intent keywords, diacritic-free (VN + EN).
 $kw = @(
     'them tinh nang', 'tinh nang moi', 'them chuc nang', 'chuc nang moi',
