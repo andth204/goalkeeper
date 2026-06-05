@@ -35,7 +35,7 @@ Three skills map to three slash commands:
 | Command | Skill | Role |
 | --- | --- | --- |
 | `/spec-to-goal <requirement>` | `spec-to-goal` | Shape a raw request into a Goal Contract. Does **not** write code. |
-| `/goal-implement docs/goals/<id>.goal.md` | `goal-implement` | Execute a `VALIDATED` contract; keeps a progress log; runs validation. |
+| `/goal-implement docs/goals/<id>.goal.md` | `goal-implement` | Execute a `VALIDATED` contract; keeps a progress log; runs validation; gates completion on its verify command. |
 | `/goal-status` | `goal-status` | List every contract and its status. |
 
 A contract carries one of six statuses: `VALIDATED` (ready) · `NEEDS_DATA` · `BLOCKED` · `TOO_BROAD` · `DREAM` · `PROTOTYPE_ONLY`. Only `VALIDATED` may be implemented.

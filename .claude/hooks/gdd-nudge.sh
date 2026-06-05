@@ -57,7 +57,7 @@ for k in \
 do
   case "$pl" in
     *"$k"*)
-      printf '%s\n' "[GDD] Yeu cau co ve da-buoc. Can nhac /spec-to-goal truoc khi code (xem CLAUDE.md - nguong kich hoat). Bo qua neu la sua nho."
+      printf '%s\n' "[GDD] This looks like multi-step work. Consider /spec-to-goal before coding (see CLAUDE.md > activation threshold). Skip if it's a small edit."
       exit 0
       ;;
   esac

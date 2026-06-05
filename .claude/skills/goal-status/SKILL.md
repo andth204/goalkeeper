@@ -22,7 +22,7 @@ Read-only overview of the Goal-Driven Development portfolio. Does not create, ed
 ```txt
 | Goal ID | Status | Goal (short) | Progress? | Impl? |
 |---|---|---|---|---|
-| 2026-06-04-cache-gio-mo-cua | VALIDATED | Cache câu hỏi giờ mở cửa | yes | no |
+| 2026-01-15-referral-earnings | VALIDATED | Show claimable referral earnings on the dashboard | yes | no |
 ```
 
 Status legend (carry from the contract verbatim):
