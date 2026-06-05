@@ -12,6 +12,18 @@ This repo uses **Goal-Driven Development (GDD)** to enforce three outcomes:
 2. **Realistic goals** — every goal is checked against current repo/product state, dependencies, constraints, and risks before implementation.
 3. **Intent-aligned execution** — work stays inside the human-approved Goal Contract; no invented objectives, hidden assumptions, or scope expansion.
 
+## Evidence & honesty (applies to EVERY response, not just GDD work)
+
+Anti-fabrication rule. The failure mode it guards: confident, unverified claims stated as fact. Unlike the rest of GDD it governs the EXPLORE phase too, not only implementation.
+
+- **Cite or label.** Every factual claim about the repo (a count, a behavior, "X works", "file Y does Z") is backed by command output or a `file:line` in the same response — or explicitly tagged `assumption` / `unverified`. No bare assertions.
+- **Run before you claim.** Never say a test/check/command "passed", or that a behavior holds, unless it was actually run. A shallow or partial read is NOT verification — e.g. `git clone --depth 1` cannot reveal commit count; a function signature is not its runtime behavior.
+- **Surface the gaps.** What could not be verified in the current environment goes in an explicit "could not verify" note. Do not smooth it over.
+- **Prefer mechanical proof.** When a command can settle a question (exit code, test, grep, `git rev-list`), run it instead of reasoning about the likely answer.
+- **Scope verification to stakes.** Research/audit answers and high-risk or ≥2-layer goals warrant an independent adversarial re-check before they ship; trivial edits, questions, and read-only explanations do not.
+
+This is advisory — the only HARD gate is a Goal Contract's `Verification command` (an exit code does not lie). Lean on that for anything that matters.
+
 ## When GDD applies (activation threshold)
 
 GDD is for shaping ambiguous or multi-layer work — NOT every edit. Use judgment:
