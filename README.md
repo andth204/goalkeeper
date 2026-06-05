@@ -1,8 +1,6 @@
-# Claude GDD Kit
+# goalkeeper
 
 **Goal-Driven Development for Claude Code** — a portable control layer that turns vague requirements into validated *Goal Contracts* before Claude writes production code.
-
-> Ported from [kv0906/gdd-skills](https://github.com/kv0906/gdd-skills) (originally for Codex/OpenAI) and adapted for Claude Code.
 
 A one-line summary: a checkpoint between *"vague request"* and *"writing code"* — it forces the agent to make a goal **trackable, realistic, and intent-aligned** before touching the codebase.
 
@@ -47,7 +45,7 @@ A contract carries one of six statuses: `VALIDATED` (ready) · `NEEDS_DATA` · `
 ## What's inside
 
 ```txt
-claude-gdd-kit/
+goalkeeper/
 ├── README.md            # this file
 ├── LICENSE              # MIT
 ├── CLAUDE.gdd.md        # generic GDD rules — paste into the target repo's CLAUDE.md
@@ -76,8 +74,8 @@ Everything is **generic** — no project-specific commands or paths are baked in
 ### 1. Copy the kit into your target repo
 
 ```bash
-cp -r claude-gdd-kit/.claude .          # skills + hooks + settings
-cp claude-gdd-kit/CLAUDE.gdd.md .       # the instruction template
+cp -r goalkeeper/.claude .          # skills + hooks + settings
+cp goalkeeper/CLAUDE.gdd.md .       # the instruction template
 ```
 
 If the target already has a `.claude/`, merge the `skills/` and `hooks/` folders and the `settings.json` hook block.
@@ -128,11 +126,6 @@ Be honest, so it doesn't become bureaucracy:
 GDD is a tool for **ambiguous / multi-layer** work, not a ritual for every commit. The activation threshold lives in `CLAUDE.gdd.md`.
 
 ---
-
-## Credits
-
-- Original concept and skill design: [kv0906/gdd-skills](https://github.com/kv0906/gdd-skills) (Codex).
-- Changes in this Claude port: dropped `.codex/config.toml` and the Codex `/goal` runtime → replaced with the `goal-implement` skill; `AGENTS.md` → `CLAUDE.md`; added the `goal-status` skill; added the cross-OS nudge hook; skills auto-detect real validation commands instead of hardcoding them.
 
 ## License
 

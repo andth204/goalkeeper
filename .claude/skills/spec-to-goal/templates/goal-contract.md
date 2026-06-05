@@ -77,6 +77,13 @@
 - Implementation checks: <the project's real test / lint / typecheck / build / bench commands + the metric each proves>
 - Post-release checks: <logs / analytics / manual QA steps>
 
+## Verification command
+<!-- ONE real command that mechanically proves this goal is done: exit 0 = pass, non-zero = fail.
+     Use a real project command (test / lint / build / bench) detected from CLAUDE.md "Validation reality",
+     package.json / pyproject.toml / Makefile / CI. If no single command can prove it, write:
+     manual: <explicit steps to check>. Never invent a command the repo does not have. -->
+<command, or "manual: <steps>">
+
 ## Decision
 <why this should proceed, be blocked, be split, or be downgraded>
 

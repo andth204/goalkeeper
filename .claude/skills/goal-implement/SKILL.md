@@ -5,7 +5,7 @@ description: Implement a VALIDATED Goal Contract produced by spec-to-goal. Treat
 
 # Goal Implement Skill
 
-Claude's implementation runtime for Goal-Driven Development. This is the Claude equivalent of Codex's `/goal` command. It executes a Goal Contract; it does NOT create or reshape goals.
+Claude's implementation runtime for Goal-Driven Development. It executes a Goal Contract; it does NOT create or reshape goals.
 
 ## Input
 
@@ -51,9 +51,17 @@ Run the contract's `## Validation plan`:
 
 ## Completion
 
+Run the contract's `## Verification command` as the final done-gate:
+
+- Execute it from the repo root. Exit 0 = PASS, any non-zero = FAIL.
+- If it is `manual: <steps>`, perform the steps and record the observed result.
+- Record the command and its PASS/FAIL (with a one-line reason) in the progress log and the implementation report.
+- If verification FAILS, do NOT declare success — report the failure and stop.
+
 Stop only when:
 
 - every acceptance criterion is demonstrably met,
+- the `Verification command` passed (or, if `manual`, its steps were checked and passed),
 - the validation plan is complete (or unrunnable checks are explicitly flagged),
 - no `Non-goals` were touched.
 

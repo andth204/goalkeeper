@@ -55,6 +55,7 @@ When invoked:
 - Do not invent current-state evidence. Evidence must come from the repo, docs, data, logs, tests, user context, or explicit assumptions.
 - Do not hide blockers. Classify blocked work as blocked.
 - Do not allow vague success criteria such as "works well", "good UX", "fast", or "secure" without measurable verification.
+- Set the `Verification command` to ONE real command that mechanically proves the goal done (exit 0 = pass); if none exists, use `manual: <steps>`. Never invent a command the repo lacks.
 - Do not expand scope beyond the stated goal.
 - If the goal is too large, split it into a smaller valid goal and list the deferred goals.
 - Preserve the user's intent. Do not replace it with an agent-invented objective.
@@ -142,6 +143,7 @@ The goal must have:
 - Success criteria
 - Acceptance criteria
 - Validation plan
+- Verification command (one real command that proves the goal done, exit 0 = pass; or `manual: <steps>` if none exists)
 - Measurement source or proxy measurement
 
 If the goal cannot be measured at all, it is not `VALIDATED`.
@@ -194,7 +196,7 @@ If the Goal Contract status is `VALIDATED`, produce a concise implementation han
 
 If the status is not `VALIDATED`, do not produce an implementation command. Produce the smallest next action required to make it valid.
 
-Handoff command (Claude has no Codex `/goal`; use the companion `goal-implement` skill instead):
+Handoff command (use the companion `goal-implement` skill to execute the contract):
 
 ```txt
 /goal-implement docs/goals/<goal-id>.goal.md

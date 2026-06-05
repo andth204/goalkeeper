@@ -39,7 +39,7 @@ Only implement after a Goal Contract exists and its status is `VALIDATED`. Imple
 /goal-implement docs/goals/<goal-id>.goal.md
 ```
 
-`goal-implement` is the implementation runtime (Claude's equivalent of Codex `/goal`). Do not invent a separate implementation mechanism for Goal Contracts.
+`goal-implement` is the implementation runtime that executes Goal Contracts. Do not invent a separate implementation mechanism for Goal Contracts.
 
 ## Goal Quality Gate
 
