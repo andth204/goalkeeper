@@ -8,17 +8,25 @@
 raw=$(cat)
 [ -z "$raw" ] && exit 0
 
-# Extract the prompt field with jq if available; otherwise scan the raw payload.
+# Extract the prompt field. Prefer jq; without it, pull the JSON "prompt"
+# string value with POSIX sed so the question/keyword checks below see the
+# prompt TEXT, not the surrounding JSON (a raw payload ends in '}', which
+# silently defeats the trailing-'?' and leading-question-word guards and
+# breaks parity with the PowerShell hook on jq-less hosts).
 if command -v jq >/dev/null 2>&1; then
   p=$(printf '%s' "$raw" | jq -r '.prompt // empty' 2>/dev/null)
   [ -z "$p" ] && p=$raw
 else
-  p=$raw
+  # Best-effort, POSIX-only (no GNU \| alternation): take text after the
+  # first "prompt":" up to the next quote. Falls back to the raw payload.
+  p=$(printf '%s' "$raw" | sed -n 's/.*"prompt"[[:space:]]*:[[:space:]]*"//p' | sed 's/".*//')
+  [ -z "$p" ] && p=$raw
 fi
 
-# Lowercase + trim leading whitespace.
+# Lowercase + trim leading and trailing whitespace (trailing trim mirrors the
+# PowerShell hook's TrimEnd so a trailing-'?' after spaces is still caught).
 pl=$(printf '%s' "$p" | tr '[:upper:]' '[:lower:]')
-pl=$(printf '%s' "$pl" | sed 's/^[[:space:]]*//')
+pl=$(printf '%s' "$pl" | sed 's/^[[:space:]]*//; s/[[:space:]]*$//')
 
 # Skip slash commands and anything already in the GDD flow.
 case "$pl" in
