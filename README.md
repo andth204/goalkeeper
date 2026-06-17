@@ -38,6 +38,12 @@ Three skills map to three slash commands:
 | `/goal-implement docs/goals/<id>.goal.md` | `goal-implement` | Execute a `VALIDATED` contract; keeps a progress log; runs validation; gates completion on its verify command. |
 | `/goal-status` | `goal-status` | List every contract and its status. |
 
+Plus a **method skill** invoked *during* implementation, not as a phase of its own:
+
+| Command | Skill | Role |
+| --- | --- | --- |
+| `/test-driven-development` | `test-driven-development` | When an acceptance criterion changes behavior, write the failing test FIRST, then the code. Ties the test to the contract's `Verification command`. Generic — uses the project's own test harness. |
+
 A contract carries one of six statuses: `VALIDATED` (ready) · `NEEDS_DATA` · `BLOCKED` · `TOO_BROAD` · `DREAM` · `PROTOTYPE_ONLY`. Only `VALIDATED` may be implemented.
 
 ---
@@ -61,7 +67,9 @@ goalkeeper/
         │   └── templates/goal-contract.md
         ├── goal-implement/    # Phase 2: implement a VALIDATED contract
         │   └── SKILL.md
-        └── goal-status/       # portfolio overview
+        ├── goal-status/       # portfolio overview
+        │   └── SKILL.md
+        └── test-driven-development/  # method: failing test first, tied to the verify command
             └── SKILL.md
 ```
 

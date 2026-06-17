@@ -26,7 +26,7 @@ If no path is given, ask for one or list `docs/goals/*.goal.md` and ask which to
 - Do not invent new product goals during implementation.
 - Do not assume a dependency marked `UNKNOWN` or `BLOCKED` is ready — verify or stop.
 - Keep scope minimal. Map every material change back to an acceptance criterion.
-- Add or update tests when behavior changes (if the project has a test harness).
+- When behavior changes and the project has a test harness, drive it with the `test-driven-development` skill — write the failing test first, then the code; the contract's `Verification command` is that test.
 - Work in checkpoints. After each checkpoint, append to the progress log.
 
 ## Progress log

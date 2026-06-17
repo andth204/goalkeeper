@@ -67,7 +67,7 @@ The agent must not: invent goals beyond stated intent, turn speculation into fac
 
 - Keep scope minimal. Map every material change to an acceptance criterion.
 - Do not expand non-goals or create new product goals during implementation.
-- Add/update tests when behavior changes (see validation reality below).
+- Behavior change → use the `test-driven-development` skill: write the failing test first, then the code. The contract's `Verification command` is that test (see validation reality below).
 - Run relevant validation before the final response; clearly report any check that could not be run.
 - If repo reality conflicts with the Goal Contract, STOP and propose a contract revision instead of expanding scope.
 
