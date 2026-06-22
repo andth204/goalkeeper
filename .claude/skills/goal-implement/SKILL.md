@@ -27,6 +27,7 @@ If no path is given, ask for one or list `docs/goals/*.goal.md` and ask which to
 - Do not assume a dependency marked `UNKNOWN` or `BLOCKED` is ready — verify or stop.
 - Keep scope minimal. Map every material change back to an acceptance criterion.
 - When behavior changes and the project has a test harness, drive it with the `test-driven-development` skill — write the failing test first, then the code; the contract's `Verification command` is that test.
+- Mark every deliberate simplification you take inside the boundary with a `gdd-defer` comment naming its ceiling and upgrade trigger — `<lead> gdd-defer[(<goal-id>)]: <ceiling> ; <upgrade trigger>`, referencing the owning goal id. `goal-debt` later harvests these into a ledger; unmarked shortcuts become invisible debt.
 - Work in checkpoints. After each checkpoint, append to the progress log.
 
 ## Progress log

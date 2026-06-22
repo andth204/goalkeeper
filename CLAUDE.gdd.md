@@ -66,6 +66,7 @@ The agent must not: invent goals beyond stated intent, turn speculation into fac
 ## Implementation rules
 
 - Keep scope minimal. Map every material change to an acceptance criterion.
+- Mark every deliberate simplification taken inside the boundary with a `gdd-defer` comment that names its ceiling and upgrade trigger — `<lead> gdd-defer[(<goal-id>)]: <ceiling> ; <upgrade trigger>` — referencing the owning goal id. Harvest them any time into a ledger with the `goal-debt` skill; unmarked shortcuts become invisible debt.
 - Do not expand non-goals or create new product goals during implementation.
 - Behavior change → use the `test-driven-development` skill: write the failing test first, then the code. The contract's `Verification command` is that test (see validation reality below).
 - Run relevant validation before the final response; clearly report any check that could not be run.

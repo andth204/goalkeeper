@@ -37,6 +37,7 @@ Three skills map to three slash commands:
 | `/spec-to-goal <requirement>` | `spec-to-goal` | Shape a raw request into a Goal Contract. Does **not** write code. |
 | `/goal-implement docs/goals/<id>.goal.md` | `goal-implement` | Execute a `VALIDATED` contract; keeps a progress log; runs validation; gates completion on its verify command. |
 | `/goal-status` | `goal-status` | List every contract and its status. |
+| `/goal-debt` | `goal-debt` | Harvest `gdd-defer` deferred-decision markers from the code into a ledger, each linked to its owning contract (or flagged orphan). Read-only. |
 
 Plus a **method skill** invoked *during* implementation, not as a phase of its own:
 
@@ -68,6 +69,8 @@ goalkeeper/
         ├── goal-implement/    # Phase 2: implement a VALIDATED contract
         │   └── SKILL.md
         ├── goal-status/       # portfolio overview
+        │   └── SKILL.md
+        ├── goal-debt/         # harvest gdd-defer markers into a ledger
         │   └── SKILL.md
         └── test-driven-development/  # method: failing test first, tied to the verify command
             └── SKILL.md
