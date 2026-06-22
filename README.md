@@ -56,6 +56,7 @@ goalkeeper/
 ├── README.md            # this file
 ├── LICENSE              # MIT
 ├── CLAUDE.gdd.md        # generic GDD rules — paste into the target repo's CLAUDE.md
+├── gdd_audit.py         # retrospective compliance audit - scorecard over a goals dir
 ├── .gitattributes       # forces the .sh hook to stay LF across OSes
 └── .claude/
     ├── settings.json    # registers the nudge hook (Windows default; see Install for unix)
