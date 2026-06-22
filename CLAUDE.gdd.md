@@ -66,6 +66,7 @@ The agent must not: invent goals beyond stated intent, turn speculation into fac
 ## Implementation rules
 
 - Keep scope minimal. Map every material change to an acceptance criterion.
+- **Fix the cause, not the symptom — no careless or band-aid fixes.** Address the actual problem at the right altitude, not just the single input that triggered it. Banned: hardcoding or special-casing to make one case pass, a regex/heuristic that only fits the example and doesn't generalize, papering over a symptom while the cause remains, or faking a result to turn a check green. A narrow fix is acceptable ONLY if it is genuinely correct for the general case, or it is an honest `gdd-defer`-marked simplification (ceiling + upgrade trigger) — never a disguised one.
 - Mark every deliberate simplification taken inside the boundary with a `gdd-defer` comment that names its ceiling and upgrade trigger — `<lead> gdd-defer[(<goal-id>)]: <ceiling> ; <upgrade trigger>` — referencing the owning goal id. Harvest them any time into a ledger with the `goal-debt` skill; unmarked shortcuts become invisible debt.
 - Do not expand non-goals or create new product goals during implementation.
 - Behavior change → use the `test-driven-development` skill: write the failing test first, then the code. The contract's `Verification command` is that test (see validation reality below).
