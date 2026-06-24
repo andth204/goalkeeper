@@ -28,14 +28,29 @@ Goal Contract (.goal.md) → 3 gates: Trackable · Realistic · Aligned
    │  status == VALIDATED?  (if not: stop, report what's missing)
    ▼  /goal-implement      ◄── PHASE 2: IMPLEMENTATION (code now)
 Code within the boundary + progress log + run the real validation plan
+   │  /goal-review         ◄── PHASE 3: ADVERSARIAL AUDIT (refute "it's done")
+   ▼  /goal-retro          ◄── PHASE 4: REFLECT (score assumptions, carry learnings)
 ```
 
-Three skills map to three slash commands:
+### Three tiers — the discipline is constant, the paperwork scales
+
+Not every change deserves a contract. Pick a tier; the Evidence & honesty rule applies to all three:
+
+| Tier | Situation | Command |
+| --- | --- | --- |
+| **0 — Raw** | 1–2 line edit, typo, rename, config; pure question / read-only | *just do it* |
+| **1 — Lite** | a real change, but small & single-concern (≈≤1 file, one layer) | `/goal-lite` — 4-line inline mini-contract, no file |
+| **2 — Full** | vague / ≥2 layers / ≥3 files / needs a measured target | `/spec-to-goal` → `/goal-implement` |
+
+The slash commands:
 
 | Command | Skill | Role |
 | --- | --- | --- |
 | `/spec-to-goal <requirement>` | `spec-to-goal` | Shape a raw request into a Goal Contract. Does **not** write code. |
 | `/goal-implement docs/goals/<id>.goal.md` | `goal-implement` | Execute a `VALIDATED` contract; keeps a progress log; runs validation; gates completion on its verify command. |
+| `/goal-lite` | `goal-lite` | **Tier 1.** State a 4-line inline mini-contract (goal · boundary · verification) and implement it under full discipline — no `.goal.md`. Escalates to `/spec-to-goal` if it outgrows Tier 1. |
+| `/goal-review docs/goals/<id>.goal.md` | `goal-review` | Adversarially audit the diff against the contract — refute each acceptance criterion, flag non-goal scope creep + unmarked shortcuts, re-run the verify. Read-only; `SHIP`/`DO NOT SHIP`. |
+| `/goal-retro docs/goals/<id>.goal.md` | `goal-retro` | After ship: score the contract's assumptions against reality, harvest deferrals/deviations, distil durable learnings. Read-mostly. |
 | `/goal-status` | `goal-status` | List every contract and its status. |
 | `/goal-debt` | `goal-debt` | Harvest `gdd-defer` deferred-decision markers from the code into a ledger, each linked to its owning contract (or flagged orphan). Read-only. |
 
@@ -68,6 +83,12 @@ goalkeeper/
         │   ├── SKILL.md
         │   └── templates/goal-contract.md
         ├── goal-implement/    # Phase 2: implement a VALIDATED contract
+        │   └── SKILL.md
+        ├── goal-review/       # Phase 3: adversarial audit of the diff vs the contract
+        │   └── SKILL.md
+        ├── goal-retro/        # Phase 4: score assumptions vs reality, carry learnings
+        │   └── SKILL.md
+        ├── goal-lite/         # Tier 1: inline mini-contract, no .goal.md file
         │   └── SKILL.md
         ├── goal-status/       # portfolio overview
         │   └── SKILL.md
@@ -117,6 +138,29 @@ To disable the nudge entirely, remove the `UserPromptSubmit` block from `setting
 
 ---
 
+## Global install — one toolkit for every project
+
+The 3 steps above install GDD into a *single* repo. To make it your **personal default across all projects** without copying it into each one, install at the user level instead. Skills and rules in `~/.claude/` apply to every project Claude Code opens.
+
+1. **Skills + hook → user level.** Symlink (recommended, so `git pull` updates everywhere) or copy this repo's skills into `~/.claude/skills/`:
+
+   ```bash
+   git clone https://github.com/andth204/goalkeeper.git ~/goalkeeper
+   ln -s ~/goalkeeper/.claude/skills/* ~/.claude/skills/        # macOS / Linux
+   ```
+
+   On Windows: `New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.claude\skills\goalkeeper" -Target "$HOME\goalkeeper\.claude\skills"`. Register the nudge hook in `~/.claude/settings.json` (same block as project `settings.json`, but it applies globally).
+
+2. **Rules → global `CLAUDE.md`.** Paste the contents of `CLAUDE.gdd.md` into `~/.claude/CLAUDE.md` (your user-level instructions for all projects). This makes the three tiers + Evidence & honesty rule the default everywhere.
+
+3. **Validation reality stays per-project.** The one thing that is NOT global: the `## Validation reality` table — each repo has its own real test/build/bench commands. Leave that section in each repo's *own* `CLAUDE.md`. `spec-to-goal` also auto-detects commands from `package.json` / `pyproject.toml` / `Makefile` / CI, so a fresh repo still works before you fill it in.
+
+**Update everywhere at once:** `cd ~/goalkeeper && git pull` — symlinked skills pick up changes on the next session. This is the "one repo, many projects, auto-update" model.
+
+> Trade-off: global skills load in *every* project, including ones where GDD is irrelevant. That's cheap — skills only run when slash-invoked, and the nudge is ≈0 tokens on a no-match. The global `CLAUDE.gdd.md` rules also apply the anti-fabrication discipline to small repos, which is usually what you want.
+
+---
+
 ## The nudge hook
 
 On each prompt, if it looks like a multi-step / feature request (keywords in English + Vietnamese, accent-insensitive: `add feature`, `refactor`, `implement`, `cải thiện`, `tối ưu`, …), the hook prints a single-line reminder to consider `/spec-to-goal` first. No match → prints nothing (≈0 tokens). It skips `/…` slash commands, always exits 0, and never blocks a prompt.
@@ -131,11 +175,11 @@ To cut false positives, it also stays silent on **questions and explanations** �
 
 Be honest, so it doesn't become bureaucracy:
 
-- Small 1–2 line edits → writing a contract is pure overhead. Just edit.
-- Solo work with a scope you already hold in your head → the "align human ↔ agent" value drops.
+- Small 1–2 line edits (Tier 0) → writing a contract is pure overhead. Just edit — the Evidence & honesty rule still applies.
+- Small but real, scope already in your head (Tier 1) → don't write a `.goal.md`; use `/goal-lite` for an inline mini-contract that keeps the verification gate without the paperwork.
 - Risk of paperwork sprawl: piles of unread `.goal.md` files → use `/goal-status` to review and prune.
 
-GDD is a tool for **ambiguous / multi-layer** work, not a ritual for every commit. The activation threshold lives in `CLAUDE.gdd.md`.
+A **full contract** (Tier 2) is for **ambiguous / multi-layer** work, not a ritual for every commit. The three-tier activation threshold lives in `CLAUDE.gdd.md`.
 
 ---
 

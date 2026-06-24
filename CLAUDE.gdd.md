@@ -24,19 +24,17 @@ Anti-fabrication rule. The failure mode it guards: confident, unverified claims 
 
 This is advisory — the only HARD gate is a Goal Contract's `Verification command` (an exit code does not lie). Lean on that for anything that matters.
 
-## When GDD applies (activation threshold)
+## When GDD applies (activation threshold — three tiers)
 
-GDD is for shaping ambiguous or multi-layer work — NOT every edit. Use judgment:
+GDD is not all-or-nothing. The **discipline** (Evidence & honesty above, fix-the-cause below) applies to *every* change; only the **artifact weight** scales with the work. Pick a tier:
 
-| Situation | Use GDD? |
-|---|---|
-| Vague / open-ended request ("improve X", "add a new kind of Y") | YES — `/spec-to-goal` first |
-| Touches ≥2 layers or ≥3 files | YES |
-| Performance/quality goal needing a measured target (latency, hit rate, accuracy) | YES |
-| Single-file, obvious, ≤~20 lines (fix typo, tweak config, rename) | NO — just do it |
-| Pure question / explanation / read-only investigation | NO |
+| Tier | Situation | Action |
+|---|---|---|
+| **0 — Raw** | 1–2 line edit, typo, rename, config tweak; pure question / read-only investigation | Just do it. The Evidence & honesty rule still holds. |
+| **1 — Lite** | A real behavior/code change, but small, single-concern, scope already clear (≈≤1 file / ≤~40 lines, one layer) | `/goal-lite` — state a 4-line inline mini-contract (goal · boundary · verification), implement, run the verify. No `.goal.md`. |
+| **2 — Full** | Vague / open-ended ("improve X", "add a new kind of Y"); touches ≥2 layers or ≥3 files; needs a measured target (latency, hit rate, accuracy) | `/spec-to-goal` → `/goal-implement`. Full contract, progress log, validation plan. |
 
-When in doubt on a borderline case, ask the user "GDD contract first, or just edit?" instead of forcing either path.
+The key idea: **kỷ luật là hằng số, contract là biến** — the working standard is constant; the paperwork is what scales. When a task sits on a tier boundary, choose the heavier tier. When genuinely unsure, ask the user "Tier 1 (`/goal-lite`) or full contract (`/spec-to-goal`)?" instead of forcing either path. A `/goal-lite` change that grows past Tier 1 mid-flight must STOP and escalate to `/spec-to-goal` — never let lite balloon into uncontracted multi-layer work.
 
 ## Default workflow
 
@@ -49,9 +47,11 @@ Only implement after a Goal Contract exists and its status is `VALIDATED`. Imple
 ```txt
 /spec-to-goal <raw requirement or referenced spec>
 /goal-implement docs/goals/<goal-id>.goal.md
+/goal-review docs/goals/<goal-id>.goal.md     # before shipping a high-risk / ≥2-layer goal
+/goal-retro docs/goals/<goal-id>.goal.md       # after it ships — capture learnings
 ```
 
-`goal-implement` is the implementation runtime that executes Goal Contracts. Do not invent a separate implementation mechanism for Goal Contracts.
+`goal-implement` is the implementation runtime that executes Goal Contracts. Do not invent a separate implementation mechanism for Goal Contracts. For a Tier-1 change, `goal-lite` collapses shaping + implementation into one inline pass (no contract file).
 
 ## Goal Quality Gate
 
@@ -66,10 +66,13 @@ The agent must not: invent goals beyond stated intent, turn speculation into fac
 ## Implementation rules
 
 - Keep scope minimal. Map every material change to an acceptance criterion.
+- **Fix the cause, not the symptom — no careless or band-aid fixes.** Address the actual problem at the right altitude, not just the single input that triggered it. Banned: hardcoding or special-casing to make one case pass, a regex/heuristic that only fits the example and doesn't generalize, papering over a symptom while the cause remains, or faking a result to turn a check green. A narrow fix is acceptable ONLY if it is genuinely correct for the general case, or it is an honest `gdd-defer`-marked simplification (ceiling + upgrade trigger) — never a disguised one.
 - Mark every deliberate simplification taken inside the boundary with a `gdd-defer` comment that names its ceiling and upgrade trigger — `<lead> gdd-defer[(<goal-id>)]: <ceiling> ; <upgrade trigger>` — referencing the owning goal id. Harvest them any time into a ledger with the `goal-debt` skill; unmarked shortcuts become invisible debt.
 - Do not expand non-goals or create new product goals during implementation.
 - Behavior change → use the `test-driven-development` skill: write the failing test first, then the code. The contract's `Verification command` is that test (see validation reality below).
 - Run relevant validation before the final response; clearly report any check that could not be run.
+- For a high-risk or ≥2-layer goal, the `Verification command` passing is necessary but not sufficient: run the `goal-review` skill to adversarially audit the diff against every acceptance criterion (and for non-goal scope creep + unmarked shortcuts) before declaring done. This is the independent re-check the Evidence & honesty rule requires.
+- After a goal ships, run `goal-retro` to score the contract's assumptions against reality and carry durable learnings into the next goal.
 - If repo reality conflicts with the Goal Contract, STOP and propose a contract revision instead of expanding scope.
 
 ## Validation reality (FILL PER PROJECT)
