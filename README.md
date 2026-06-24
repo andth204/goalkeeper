@@ -20,6 +20,8 @@ Autonomous agents are useful, but raw feature requests are usually too ambiguous
 
 ## Workflow
 
+The full **Tier-2** path (smaller work uses fewer phases — see the tiers below):
+
 ```txt
 Vague requirement
    │  /spec-to-goal        ◄── PHASE 1: SHAPING (no code)
@@ -27,9 +29,13 @@ Vague requirement
 Goal Contract (.goal.md) → 3 gates: Trackable · Realistic · Aligned
    │  status == VALIDATED?  (if not: stop, report what's missing)
    ▼  /goal-implement      ◄── PHASE 2: IMPLEMENTATION (code now)
-Code within the boundary + progress log + run the real validation plan
-   │  /goal-review         ◄── PHASE 3: ADVERSARIAL AUDIT (refute "it's done")
-   ▼  /goal-retro          ◄── PHASE 4: REFLECT (score assumptions, carry learnings)
+Code within the boundary + progress log + the real validation plan
+   │  /goal-review         ◄── PHASE 3: ADVERSARIAL AUDIT — refute "it's done"
+   ▼
+SHIP / DO NOT SHIP
+   │  /goal-retro          ◄── PHASE 4: REFLECT — score assumptions, harvest learnings
+   ▼
+Next goal starts smarter
 ```
 
 ### Three tiers — the discipline is constant, the paperwork scales
@@ -102,7 +108,9 @@ Everything is **generic** — no project-specific commands or paths are baked in
 
 ---
 
-## Install (3 steps)
+## Install — per project (3 steps)
+
+(For a personal toolkit across *all* projects, skip to **Global install** below.)
 
 ### 1. Copy the kit into your target repo
 
@@ -132,7 +140,7 @@ Copy the contents of `CLAUDE.gdd.md` into your repo's `CLAUDE.md` (create it, or
 
   then `chmod +x .claude/hooks/gdd-nudge.sh`.
 
-Restart Claude Code, type `/`, and confirm `spec-to-goal`, `goal-implement`, and `goal-status` appear. (Project skills load at session start.)
+Restart Claude Code, type `/`, and confirm the `goal-*` skills (`spec-to-goal`, `goal-implement`, `goal-lite`, `goal-review`, `goal-retro`, `goal-status`, `goal-debt`) appear. (Project skills load at session start.)
 
 To disable the nudge entirely, remove the `UserPromptSubmit` block from `settings.json`.
 
